@@ -5,7 +5,7 @@
 import { useState } from 'react';
 // Importações atualizadas
 import { QuestionType } from '@/types/quiz';
-import QuizForm from '@/app/components/QuizFormulario'; // O nome do arquivo não muda
+import QuizForm from '@/app/components/QuizForm'; // O nome do arquivo não muda
 
 export default function Home() {
     // Variáveis de estado renomeadas para inglês
@@ -86,7 +86,7 @@ export default function Home() {
                 {error && <p className="text-xl mt-8 text-red-500">Erro: {error}</p>}
 
                 {/* Passando a prop 'questions' para o componente QuizForm */}
-                {questions && <div className="mt-10"><QuizForm questions={questions} /></div>}
+                {questions && <div className="mt-10"><QuizForm questions={questions} onFinish={() => setQuestions(null)} /></div>}
 
             </div>
         </main>

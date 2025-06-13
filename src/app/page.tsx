@@ -5,7 +5,7 @@
 import { useState } from 'react';
 // Importações atualizadas
 import { QuestionType } from '@/types/quiz';
-import QuizForm from '@/app/components/QuizForm'; // O nome do arquivo não muda
+import QuizForm from '@/app/components/QuizForm';
 
 export default function Home() {
     // Variáveis de estado renomeadas para inglês
@@ -41,9 +41,18 @@ export default function Home() {
             const data: QuestionType[] = await response.json();
             setQuestions(data);
 
-        } catch (err: any) {
+        // ===================================================================
+        // BLOCO CORRIGIDO
+        // ===================================================================
+        } catch (err: unknown) { // Alterado de 'any' para 'unknown'
             console.error(err);
-            setError(err.message);
+            // Adicionada verificação de tipo para tratar o erro com segurança
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('Ocorreu um erro desconhecido.');
+            }
+        // ===================================================================
         } finally {
             setLoading(false);
         }
